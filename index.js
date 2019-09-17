@@ -1,29 +1,33 @@
+/**
+ * Keep in mind when you using async function.
+ * It's just automatic wrap by promise when you return any data.
+ */
 const getJsonCallback = (cb) => {
   setTimeout(function () {
-    cb(undefined, 'data');
-  }, 500);
-};
+    cb(undefined, 'data')
+  }, 500)
+}
 
 const getJsonPromise = () => {
   return new Promise((resolve, reject) => {
-    resolve('data');
-  });
-};
+    resolve('data')
+  })
+}
+
+const delayAsync = (duration) => new Promise(resolve => setTimeout(resolve, duration))
 
 /**
- * NOTE: setTimeout is blocking code, If you use setTimeout instead of delayAsync
- * getJsonAsync will return like this Promise.resolve(undefiend) or void.
+ * NOTE: setTimeout work on it own context.
  */
-const delayAsync = (duration) => new Promise(resolve => setTimeout(resolve, duration));
 const getJsonAsync = async () => {
-  await delayAsync(1000);
-  return 'data';
-};
+  delayAsync()
+  return 'data'
+}
 
 const init = async () => {
-  console.log('init');
-  console.log(await getJsonAsync());
-  console.log('done');
-};
+  console.log('init')
+  console.log(await getJsonAsync())
+  console.log('done')
+}
 
-init();
+init()
